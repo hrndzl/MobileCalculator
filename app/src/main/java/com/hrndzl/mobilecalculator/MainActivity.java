@@ -24,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
         display = findViewById(R.id.textView);
     }
 
+    public String getDisplayText() {
+        return display.getText().toString();
+    }
+
     public void printNumber(String number) {
         if (equalsClicked && !dotClicked) {
             display.setText(number);
@@ -34,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
         }
         operatorClicked = false;
         numberClicked = true;
+    }
+
+    public String lastChar(String lastCharInput) {
+        return (lastCharInput.substring(lastCharInput.length() -1));
     }
 
     public void printOperator(String operator) {
@@ -58,16 +66,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void delete(View view) {
         try {
-            String lastCharAsdf = String.valueOf(sb.charAt(-1));
-            sb = new StringBuffer(display.getText().toString());
-            sb.deleteCharAt(sb.length()-1);
-            display.setText(sb);
-
-
-            if (lastCharAsdf.equals(".")) {
+            if (lastChar(getDisplayText()).equals(".")) {
                 dotClicked = false;
             }
-
+            sb = new StringBuffer(getDisplayText());
+            sb.deleteCharAt(sb.length()-1);
+            display.setText(sb);
         }
         catch(Exception e) {}
     }
@@ -136,9 +140,6 @@ public class MainActivity extends AppCompatActivity {
         printOperator("/");
     }
 
-    public String lastChar(String lastCharInput) {
-        return (lastCharInput.substring(lastCharInput.length() -1));
-    }
 
     public void clickEquals(View view) {
         try {
