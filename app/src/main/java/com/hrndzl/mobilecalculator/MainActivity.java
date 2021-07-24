@@ -12,10 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView display;
     StringBuffer sb;
-    boolean equalsClicked = false;
-    boolean operatorClicked = false;
-    boolean dotClicked = false;
-    boolean numberClicked = false;
+    boolean equalsClicked, operatorClicked, dotClicked, numberClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +65,12 @@ public class MainActivity extends AppCompatActivity {
         try {
             if (lastChar(getDisplayText()).equals(".")) {
                 dotClicked = false;
+            }
+            else if (lastChar(getDisplayText()).equals("+") ||
+                    lastChar(getDisplayText()).equals("-") ||
+                    lastChar(getDisplayText()).equals("*") ||
+                    lastChar(getDisplayText()).equals("/")) {
+                operatorClicked = false;
             }
             sb = new StringBuffer(getDisplayText());
             sb.deleteCharAt(sb.length()-1);
