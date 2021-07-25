@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.fathzer.soft.javaluator.DoubleEvaluator;
 
 public class MainActivity extends AppCompatActivity {
+    // TODO: 7/25/21 1. put in a number, 2. click an operator, 3. click dot, 4. delete dot and operator, 5. you cant put a dot again, fix that
 
     TextView display;
     StringBuffer sb;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         else {
             display.setText(display.getText() + number);
         }
+        dotClicked = false;
         operatorClicked = false;
         numberClicked = true;
     }
@@ -44,14 +46,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void printOperator(String operator) {
         if (operatorClicked) {}
+        else if (dotClicked) {}
 
         else {
             display.setText(display.getText() + operator);
             operatorClicked = true;
+            dotClicked = false;
+            equalsClicked = false;
+            numberClicked = false;
         }
-        dotClicked = false;
-        equalsClicked = false;
-        numberClicked = false;
+
     }
 
     public void clear(View view){
@@ -128,11 +132,13 @@ public class MainActivity extends AppCompatActivity {
 
             else if (getDisplayText().equals("")) {
                 display.setText("0.");
+                dotClicked = true;
                 break;
             }
 
             else if (lastChar(getDisplayText()).equals(operators[i])) {
                 display.setText(display.getText() + "0.");
+                dotClicked = true;
                 break;
             }
 
