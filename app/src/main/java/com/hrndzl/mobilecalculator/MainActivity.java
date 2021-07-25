@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickDot(View view) {
-        if (dotClicked) {}
+        if (dotClicked || getDisplayText().equals("")) {}
 
         else if (lastChar(getDisplayText()).equals("+")) {
             display.setText(display.getText() + "0.");
