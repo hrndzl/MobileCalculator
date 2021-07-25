@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     TextView display;
     StringBuffer sb;
     boolean equalsClicked, operatorClicked, dotClicked, numberClicked = false;
+    String[] operators = {"+" , "-" , "*" , "/" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +68,11 @@ public class MainActivity extends AppCompatActivity {
                 dotClicked = false;
             }
 
-            else if (lastChar(getDisplayText()).equals("+") ||
-                    lastChar(getDisplayText()).equals("-") ||
-                    lastChar(getDisplayText()).equals("*") ||
-                    lastChar(getDisplayText()).equals("/")) {
-                operatorClicked = false;
+            for (int i = 0; i <= operators.length-1; i++) {
+                if (lastChar(getDisplayText()).equals(operators[i])) {
+                    operatorClicked = false;
+                }
             }
-
             sb = new StringBuffer(getDisplayText());
             sb.deleteCharAt(sb.length()-1);
             display.setText(sb);
@@ -122,33 +121,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickDot(View view) {
-        if (dotClicked) {}
+        for (int i = 0; i <= operators.length-1; i++){
+            if (dotClicked) {
+                break;
+            }
 
-        else if (getDisplayText().equals("")) {
-            display.setText("0.");
-        }
+            else if (getDisplayText().equals("")) {
+                display.setText("0.");
+                break;
+            }
 
-        else if (lastChar(getDisplayText()).equals("+")) {
-            display.setText(display.getText() + "0.");
-        }
+            else if (lastChar(getDisplayText()).equals(operators[i])) {
+                display.setText(display.getText() + "0.");
+                break;
+            }
 
-        else if (lastChar(getDisplayText()).equals("-")) {
-            display.setText(display.getText() + "0.");
-        }
-
-        else if (lastChar(getDisplayText()).equals("*")) {
-            display.setText(display.getText() + "0.");
-        }
-
-        else if (lastChar(getDisplayText()).equals("/")) {
-            display.setText(display.getText() + "0.");
-        }
-
-        else if (numberClicked){
-            display.setText(display.getText() + ".");
-            dotClicked = true;
+            else if (numberClicked){
+                display.setText(display.getText() + ".");
+                dotClicked = true;
+                break;
+            }
         }
     }
+
+
 
     public void clickAddition(View view) {
         printOperator("+");
