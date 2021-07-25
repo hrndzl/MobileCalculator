@@ -66,12 +66,14 @@ public class MainActivity extends AppCompatActivity {
             if (lastChar(getDisplayText()).equals(".")) {
                 dotClicked = false;
             }
+
             else if (lastChar(getDisplayText()).equals("+") ||
                     lastChar(getDisplayText()).equals("-") ||
                     lastChar(getDisplayText()).equals("*") ||
                     lastChar(getDisplayText()).equals("/")) {
                 operatorClicked = false;
             }
+
             sb = new StringBuffer(getDisplayText());
             sb.deleteCharAt(sb.length()-1);
             display.setText(sb);
@@ -121,6 +123,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickDot(View view) {
         if (dotClicked) {}
+
+        else if (lastChar(getDisplayText()).equals("+")) {
+            display.setText(display.getText() + "0.");
+        }
+
+        else if (lastChar(getDisplayText()).equals("-")) {
+            display.setText(display.getText() + "0.");
+        }
+
+        else if (lastChar(getDisplayText()).equals("*")) {
+            display.setText(display.getText() + "0.");
+        }
+
+        else if (lastChar(getDisplayText()).equals("/")) {
+            display.setText(display.getText() + "0.");
+        }
+
         else if (numberClicked){
             display.setText(display.getText() + ".");
             dotClicked = true;
@@ -143,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
         printOperator("/");
     }
 
-
     public void clickEquals(View view) {
         try {
             DoubleEvaluator evaluator = new DoubleEvaluator();
@@ -162,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
             else {
                 display.setText(doubleTo);
             }
+
             equalsClicked = true;
             operatorClicked = false;
             numberClicked = true;
