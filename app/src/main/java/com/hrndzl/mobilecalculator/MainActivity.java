@@ -9,12 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.fathzer.soft.javaluator.DoubleEvaluator;
 
 public class MainActivity extends AppCompatActivity {
-    // TODO: 7/25/21 1. put in a number, 2. click an operator, 3. click dot, 4. delete dot and operator, 5. you cant put a dot again, fix that
-
     TextView display;
     StringBuffer sb;
     boolean equalsClicked, operatorClicked, dotClicked, numberClicked = false;
     String[] operators = {"+" , "-" , "*" , "/" };
+    int dotCounter, operatorCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +44,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void printOperator(String operator) {
-        if (operatorClicked) {}
-        else if (dotClicked) {}
-
-        else {
-            display.setText(display.getText() + operator);
-            operatorClicked = true;
-            dotClicked = false;
-            equalsClicked = false;
-            numberClicked = false;
+        if (operatorCounter <= dotCounter && !lastChar(getDisplayText()).equals(".")) {
+            if (operatorClicked) {
+            } else if (dotClicked) {
+            } else {
+                display.setText(display.getText() + operator);
+                operatorClicked = true;
+                dotClicked = false;
+                equalsClicked = false;
+                numberClicked = false;
+                operatorCounter++;
+            }
         }
-
     }
 
     public void clear(View view){
@@ -64,16 +64,20 @@ public class MainActivity extends AppCompatActivity {
         operatorClicked = false;
         equalsClicked = false;
         numberClicked = false;
+        operatorCounter = 0;
+        dotCounter = 0;
     }
 
     public void delete(View view) {
         try {
             if (lastChar(getDisplayText()).equals(".")) {
+                dotCounter--;
                 dotClicked = false;
             }
 
             for (int i = 0; i <= operators.length-1; i++) {
                 if (lastChar(getDisplayText()).equals(operators[i])) {
+                    operatorCounter--;
                     operatorClicked = false;
                 }
             }
@@ -133,18 +137,21 @@ public class MainActivity extends AppCompatActivity {
             else if (getDisplayText().equals("")) {
                 display.setText("0.");
                 dotClicked = true;
+                dotCounter++;
                 break;
             }
 
             else if (lastChar(getDisplayText()).equals(operators[i])) {
                 display.setText(display.getText() + "0.");
                 dotClicked = true;
+                dotCounter++;
                 break;
             }
 
             else if (numberClicked){
                 display.setText(display.getText() + ".");
                 dotClicked = true;
+                dotCounter++;
                 break;
             }
         }
