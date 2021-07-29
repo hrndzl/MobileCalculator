@@ -12,7 +12,8 @@ public class MainActivity extends AppCompatActivity {
     TextView display;
     StringBuffer sb;
     boolean equalsClicked, operatorClicked, dotClicked, numberClicked = false;
-    String[] operators = {"+" , "-" , "*" , "/" };
+    boolean dotClickable = true;
+    String[] operators = {"+", "-", "*", "/"};
     int dotCounter, operatorCounter = 0;
 
     @Override
@@ -30,21 +31,21 @@ public class MainActivity extends AppCompatActivity {
         if (equalsClicked && !dotClicked) {
             display.setText(number);
             equalsClicked = false;
-        }
-        else {
+        } else {
             display.setText(display.getText() + number);
         }
         dotClicked = false;
         operatorClicked = false;
         numberClicked = true;
+        //dotClickable = true;
     }
 
     public String lastChar(String lastCharInput) {
-        return (lastCharInput.substring(lastCharInput.length() -1));
+        return (lastCharInput.substring(lastCharInput.length() - 1));
     }
 
     public void printOperator(String operator) {
-        if (operatorCounter <= dotCounter && !lastChar(getDisplayText()).equals(".")) {
+        if (!lastChar(getDisplayText()).equals(".")) {
             if (operatorClicked) {
             } else if (dotClicked) {
             } else {
@@ -53,14 +54,16 @@ public class MainActivity extends AppCompatActivity {
                 dotClicked = false;
                 equalsClicked = false;
                 numberClicked = false;
+                dotClickable = true;
                 operatorCounter++;
             }
         }
     }
 
-    public void clear(View view){
+    public void clear(View view) {
         display.setText("");
         dotClicked = false;
+        dotClickable = true;
         operatorClicked = false;
         equalsClicked = false;
         numberClicked = false;
@@ -72,20 +75,21 @@ public class MainActivity extends AppCompatActivity {
         try {
             if (lastChar(getDisplayText()).equals(".")) {
                 dotCounter--;
+                dotClickable = true;
                 dotClicked = false;
             }
 
-            for (int i = 0; i <= operators.length-1; i++) {
+            for (int i = 0; i <= operators.length - 1; i++) {
                 if (lastChar(getDisplayText()).equals(operators[i])) {
                     operatorCounter--;
                     operatorClicked = false;
                 }
             }
             sb = new StringBuffer(getDisplayText());
-            sb.deleteCharAt(sb.length()-1);
+            sb.deleteCharAt(sb.length() - 1);
             display.setText(sb);
         }
-        catch(Exception e) {}
+        catch (Exception e) {}
     }
 
     public void clickZero(View view) {
@@ -129,35 +133,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickDot(View view) {
-        for (int i = 0; i <= operators.length-1; i++){
-            if (dotClicked) {
-                break;
-            }
+        if (dotClickable) {
 
-            else if (getDisplayText().equals("")) {
-                display.setText("0.");
-                dotClicked = true;
-                dotCounter++;
-                break;
-            }
+            for (int i = 0; i <= operators.length - 1; i++) {
 
-            else if (lastChar(getDisplayText()).equals(operators[i])) {
-                display.setText(display.getText() + "0.");
-                dotClicked = true;
-                dotCounter++;
-                break;
-            }
+                if (dotClicked) {
+                    break;
+                }
 
-            else if (numberClicked){
-                display.setText(display.getText() + ".");
-                dotClicked = true;
-                dotCounter++;
-                break;
+                else if (getDisplayText().equals("")) {
+                    display.setText("0.");
+                    dotClicked = true;
+                    dotClickable = false;
+                    dotCounter++;
+                    break;
+                }
+
+                else if (lastChar(getDisplayText()).equals(operators[i])) {
+                    display.setText(display.getText() + "0.");
+                    dotClicked = true;
+                    dotClickable = false;
+                    dotCounter++;
+                    break;
+                }
+
+                else if (numberClicked) {
+                    display.setText(display.getText() + ".");
+                    dotClicked = true;
+                    dotClickable = false;
+                    dotCounter++;
+                    break;
+                }
             }
         }
     }
-
-
 
     public void clickAddition(View view) {
         printOperator("+");
@@ -198,7 +207,6 @@ public class MainActivity extends AppCompatActivity {
             operatorClicked = false;
             numberClicked = true;
         }
-
-        catch(Exception e) {}
+        catch (Exception e) {}
     }
 }
