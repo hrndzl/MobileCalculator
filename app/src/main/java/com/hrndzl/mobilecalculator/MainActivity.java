@@ -31,13 +31,14 @@ public class MainActivity extends AppCompatActivity {
         if (equalsClicked && !dotClicked) {
             display.setText(number);
             equalsClicked = false;
-        } else {
+        }
+
+        else {
             display.setText(display.getText() + number);
         }
         dotClicked = false;
         operatorClicked = false;
         numberClicked = true;
-        //dotClickable = true;
     }
 
     public String lastChar(String lastCharInput) {
@@ -46,9 +47,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void printOperator(String operator) {
         if (!lastChar(getDisplayText()).equals(".")) {
-            if (operatorClicked) {
-            } else if (dotClicked) {
-            } else {
+            if (operatorClicked) {}
+            else if (dotClicked) {}
+            else {
                 display.setText(display.getText() + operator);
                 operatorClicked = true;
                 dotClicked = false;
@@ -134,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickDot(View view) {
         if (dotClickable) {
-
             for (int i = 0; i <= operators.length - 1; i++) {
 
                 if (dotClicked) {
