@@ -46,19 +46,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void printOperator(String operator) {
-        if (!lastChar(getDisplayText()).equals(".")) {
-            if (operatorClicked) {}
-            else if (dotClicked) {}
+        try {
+            if (getDisplayText().equals("") && operator.equals("-")) {
+                    display.setText(operator);
+                    operatorClicked = true;
+            }
             else {
-                display.setText(display.getText() + operator);
-                operatorClicked = true;
-                dotClicked = false;
-                equalsClicked = false;
-                numberClicked = false;
-                dotClickable = true;
-                operatorCounter++;
+                for (int i = 0; i < operators.length - 1; i++) {
+                    if (!lastChar(getDisplayText()).equals(".") || !lastChar(getDisplayText()).equals(operators[i])) {
+                        if (operatorClicked) {}
+                        else if (dotClicked) {}
+                        else {
+                            display.setText(display.getText() + operator);
+                            operatorClicked = true;
+                            dotClicked = false;
+                            equalsClicked = false;
+                            numberClicked = false;
+                            dotClickable = true;
+                            operatorCounter++;
+                        }
+                        break;
+                    }
+                }
             }
         }
+        catch (Exception e) {}
     }
 
     public void clear(View view) {
